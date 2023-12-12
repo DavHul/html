@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="./src/styles.css">
+
+</head>
+<body>
+<div class="grid-container">
+    <div class="header">
+        <h2>I am David Hulsebosch</h2>
+        <p>Welcome to my site</p>
+    </div>
+  
+    <div class="topnav">
+        <a href="./index.php">Home</a>
+        <a href="./projects.php">Projects</a>
+        <a href="./about.php">About</a>
+        <a href="./website.php">Websites</a>
+    </div>
+
+    <div class="content">
+      <div style="padding:20px;margin-right:10px">
+          <img src="media/headshot.jpeg" style="float:left;width:20%;margin-right:30px">
+      
+        <h1>About</h1>
+        <p>
+        Hi! My name is David Hulsebosch. <br>I'm a 20-year-old third-year student at Hogeschool Utrecht, delving into the world of HBO-ICT with a specialization in embedded systems. Currently based in the lively town of Rhenen, I comfortably converse in Dutch, English, and Spanish.<br>
+        <br><b>Academic Journey</b><br>
+        My academic journey revolves around exploring embedded systems, where I'm dedicated to leveraging technology for practical problem-solving and contributing to innovation.
+
+        <br><br><b>Projects and Achievements</b><br>
+        Curious about my past projects? Dive into the <a href="./projects.php">Projects Page</a> to get a glimpse of the exciting tech challenges I've tackled and the solutions I've crafted.
+        <br><br><b>Hobbies & Interests</b><br>
+        Beyond the academic realm, I'm deeply immersed in a variety of hobbies:
+        <ul>
+          <li>Scouting: With two years as a scout leader and one year as a team leader, I collaborate with a dynamic team to organize gatherings and camps for a group of 25 spirited kids aged 11 to 15.</li>
+
+          <li>Fitness: A regular at the local fitness center, maintaining physical well-being is a cornerstone of my daily routine.</li>
+
+          <li>Jiujitsu: Holding a brown belt (first Kyu) in traditional Japanese jiujitsu, I not only embrace the discipline in the art but also actively contribute by teaching the younger generation.</li>
+
+          <li>Airsoft: Tactical strategy comes alive as I join forces with friends in the dynamic sport of airsoft. The fusion of communication, leadership, and teamwork is truly exhilarating.</li>
+        </ul>
+        <br><b>Passion for Aviation</b><br>
+        While my academic focus is on technology, my passion for aviation remains a constant. Exploring the skies and understanding the intricacies of flight fascinate me, adding an extra dimension to my diverse interests.
+
+        <br><br><b>Let's Connect</b><br>
+        Whether it's about technology, adventure, or just a friendly chat, feel free to reach out. Let's connect and explore the exciting possibilities together!
+        </p>
+      </div>
+    </div>
+  
+    <div class="footer">
+        <p>David Hulsebosch<br>
+        Email: david@trexco.nl<br>
+        Telephone: +31 06 38465888
+        </p>
+        <!-- Add font awesome icons -->
+        <a href="https://www.linkedin.com/in/david-hulsebosch/" class="fa fa-linkedin-square"></a>
+        <a href="https://github.com/DavHul" class="fa fa-github"></a>
+        <a href="https://instagram.com/d.h.s_photography?igshid=OGQ5ZDc2ODk2ZA==" class="fa fa-instagram"></a>
+    </div>
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+    <script>
+  // Get the button:
+let mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+</script>
+</div>
+</body>
+</html>
+
+

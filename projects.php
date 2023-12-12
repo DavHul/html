@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="./src/styles.css">
+
+</head>
+<body>
+<div class="grid-container">
+    <div class="header">
+        <h2>I am David Hulsebosch</h2>
+        <p>Welcome to my site</p>
+    </div>
+  
+    <div class="topnav">
+        <a href="./index.php">Home</a>
+        <a href="./projects.php">Projects</a>
+        <a href="./about.php">About</a>
+        <a href="./website.php">Websites</a>
+    </div>
+
+    <div class="content">
+        <h1>Projects</h1>
+        <div class="project_div">
+          <img src="media/PID.jpg" style="float:left;width:20%;margin:10px">
+          <h2>PID autopilot</h2>
+          <p>Language: C++</p>
+          <p>For this project, I developed a PID autopilot system for an autonomous RC aircraft using C++. The implementation integrates a gyroscope and a GPS module to maintain both level flight and on-course navigation.
+            <br>The project is composed of two key components: the RC aircraft and the ground station. The ground station serves as the central control hub, managing the aircraft and configuring the parameters for the PID controller.
+            <br>On the aircraft side, the setup includes an airframe, servos for controlling flight surfaces, a GPS module for precise location tracking, a gyroscope for orientation, an Arduino Due for processing, and a radio module for communication.
+            <br>Conversely, the ground station is equipped with a radio module, an LCD screen for displaying critical information, and two thumb controllers for intuitive parameter adjustments.
+            <br>This holistic approach ensures seamless communication and control between the ground station and the RC aircraft, allowing for a reliable and efficient autonomous flying experience.
+          </p>
+        </div>
+        <div class="project_div">
+          <img src="media/charge.jpg" style="float:left;height:200px;margin:10px;object-fit:contain">
+          <h2>Automated charge station</h2>
+          <p>Language: C++</p>
+          <p>In a team project, we developed an automated charging station for a self-driving robot. Featuring a retractable arm, it charges the robot and updates its software using USB. 
+            The station is adorned with LED matrix panels, with a user-friendly program allowing custom pixel art. C++ served as the main programming language, and two Raspberry Pi devices controlled the LED matrices and the robot's charging process. 
+            This project seamlessly blends functionality and aesthetics in a compact, interactive design.
+          </p>
+        </div>
+        <div class="project_div">
+          <img src="media/yolo.jpg" style="float:left;width:20%;margin:10px">
+          <h2>YOLO neural network to recognise planes in satelite images</h2>
+          <p>Language: Python</p>
+          <p>
+          In this project, I developed a YOLO (You Only Look Once) neural network tailored for identifying planes in satellite images. YOLO's efficiency lies in its ability to process the entire image in one pass, making it particularly adept at real-time applications. 
+          The network achieved an impressive mean average precision (mAP) of 0.91. 
+          Utilizing Keras and TensorFlow, it was trained on a public dataset, showcasing its accuracy and robustness in recognizing planes within diverse satellite imagery.
+          </p>
+        </div>
+        <div class="project_div">
+          <img src="media/binairy.jpg" style="float:left;width:20%;margin:10px">
+          <h2>Binary classification neural network between helicopters and planes</h2>
+          <p>Language: Python</p>
+          <p>I crafted a binary classification algorithm to discern images featuring helicopters or airplanes. Employing Keras and TensorFlow for algorithm training, this project attains an impressive accuracy rate of 82%. 
+            The utilization of these advanced frameworks underscores the effectiveness and precision achieved in distinguishing between the two aircraft types.
+        </div>
+        <div class="project_div">
+          <img src="media/bomberman.png" style="float:left;width:20%;margin:10px">
+          <h2>Bomberman clone with arduino controllers</h2>
+          <p>Language: C++</p>
+          <p>
+          In this project, my team and I programmed a Bomberman clone using C++ on a Windows platform. To enhance the gaming experience, we designed custom controllers tailored for four players, recognizing the inherently multiplayer nature of the game. 
+          The result is a collaborative effort that brings the classic Bomberman gameplay to life with a personalized touch.
+          </p>
+        </div>
+        <div class="project_div">
+          <h2>Gomoku AI bot</h2>
+          <p>Language: Python</p>
+          <p>
+          In this project, I undertook the programming of an AI bot for the game Gomoku, a board game played with Go pieces on a 15 by 15 Go board. 
+          The objective of the bot is to strategically determine and execute moves that maximize the probability of winning the game, showcasing a tailored approach to intelligent decision-making within the context of Gomoku gameplay.
+          </p>
+        </div>
+        <div class="project_div">
+          <img src="media/checkpoint.jpeg" style="float:left;height:200px;margin:10px">
+          <h2>Timestamp checkpoint using NFC tags</h2>
+          <p>Language: C++</p>
+          <p>
+          In this project, I designed a timestamp checkpoint inspired by the ones utilized in orienteering—a sport where participants navigate a race between control points. This unique checkpoint system offers flexibility, allowing participants in races or hikes to select their own routes between checkpoints. 
+          The system records participants' times on an NFC (Near Field Communication) tag using a setup consisting of an NFC card reader/writer, an Arduino Uno, and a real-time clock (RTC). This innovation introduces a dynamic and efficient method for timestamping and recording race or hike progress.
+          </p>
+        </div>
+        <div class="project_div">
+          <img src="media/fire_vehicle.png" style="float:left;width:20%;margin:10px">
+          <h2>Autonomous firefighting vehicle</h2>
+          <p>Language: C++</p>
+          <p>
+          In this collaborative team project, we engineered an autonomous firefighting vehicle designed to detect and extinguish fires. Equipped with infrared sensors for fire detection and distance sensors for obstacle navigation, the vehicle exhibits adaptability in navigating its environment.
+          <br>To enhance durability, the vehicle was constructed with a robust design, featuring tracks that contribute to its stability and resilience in challenging terrains. The entire system is controlled by a program developed in C++, running seamlessly on an Arduino Uno. This innovative solution integrates technology and practical design to create an effective autonomous firefighting vehicle.
+          </p>
+        </div>
+        <div class="project_div">
+          <h2>Lasertag system</h2>
+          <p>Language: C++</p>
+          <p>
+          In this collaborative team project, we developed an immersive laser tag system consisting of a central computer and multiple laser tag guns. The guns are equipped with infrared diodes, infrared receivers, an ESP32 , and various buttons.
+          The central computer serves as the hub for game setup and control. It orchestrates the entire gaming experience by relaying and recording hits and deaths. The communication between the central computer and the guns is facilitated through MQTT, enabling seamless internet-based connectivity. 
+          This innovative laser tag system combines hardware and software elements to deliver an engaging and interconnected gaming experience.
+          </p>
+        </div>
+        <div class="project_div">
+        <img src="media/joti.png" style="float:left;width:40%;margin:10px">
+          <h2>Jotihunt HQ website</h2>
+          <p>Language: HTML/CSS/PHP/JavaScript</p>
+          <p>
+            In this project, I created a website for a unique scouting activity known as Joti-Hunt, specifically designed for my scouting group. Joti-Hunt involves six "foxes" moving between scouting groups for 24 hours, challenging participants to find them and complete puzzles or assignments to earn points.
+            The website I developed served as a tracking platform for our fox hunts, allowing us to monitor the locations of both the foxes and the hunters. This real-time tracking capability enabled strategic planning for anticipating the next moves during the activity.
+            In our participation last year, we secured the 39th place among 71 participants. Looking ahead, I aim to enhance the user experience by transforming the website into a mobile app for the upcoming year. This transition to a mobile app is part of a broader effort to improve accessibility and usability, providing a more seamless and engaging experience for participants in the Joti-Hunt event.
+          </p>
+        </div>
+    </div>
+  
+    <div class="footer">
+        <p>David Hulsebosch<br>
+        Email: david@trexco.nl<br>
+        Telephone: +31 06 38465888
+        </p>
+        <!-- Add font awesome icons -->
+        <a href="https://www.linkedin.com/in/david-hulsebosch/" class="fa fa-linkedin-square"></a>
+        <a href="https://github.com/DavHul" class="fa fa-github"></a>
+        <a href="https://instagram.com/d.h.s_photography?igshid=OGQ5ZDc2ODk2ZA==" class="fa fa-instagram"></a>
+    </div>
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+    <script>
+  // Get the button:
+let mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+</script>
+</div>
+</body>
+</html>
+
+
