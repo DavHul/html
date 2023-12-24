@@ -1,0 +1,90 @@
+* {
+    box-sizing: border-box;
+  }
+  
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: black;
+    color: white;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-areas: 
+      'topnav topnav topnav topnav topnav' 
+      'stats stats content_upper content_upper content_upper ' 
+      'content_lower content_lower content_lower content_lower content_lower ';
+    /* grid-column-gap: 10px; - if you want gap between the columns */
+  } 
+  
+  .topnav {
+      grid-area: topnav;
+      border-radius: 10px;
+    overflow: hidden;
+    background-color: #0c0032;
+    margin: 10px;
+  }
+  
+  /* Style the topnav links */
+  .topnav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  /* Change color on hover */
+  .topnav a:hover {
+    background-color: #3500d3;
+    color: black;
+  }
+
+  .content_upper {
+    grid-area: content_upper;
+    border-radius: 10px;
+    background-color: #190061;
+    padding: 20px;
+    margin-top: 10px;
+    width: 77%;
+    float:left;
+  }
+  .stats {
+    grid-area: stats;
+    border-radius: 10px;
+    background-color: #190061;
+    padding: 20px;
+    margin: 10px;
+    width:20%;
+    height:52%;
+    float: left;
+    text-align: center;
+  }
+
+  .content_lower {
+    grid-area: content_lower;
+    border-radius: 10px;
+    background-color: #190061;
+    padding: 20px;
+    margin: 10px;
+    width: 98%;
+    float:left;
+  }
+
+  .total_screen {
+    grid-area: content_upper;
+    border-radius: 10px;
+    background-color: #190061;
+    padding: 20px;
+    margin-top: 10px;
+    width: 98%;
+    height:70%;
+    float:left;
+    text-align: center;
+  }
+
+  table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+  }
