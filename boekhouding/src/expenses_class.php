@@ -1,9 +1,22 @@
 <?php
 class expenses_class{
-    private $servername = "localhost";
-    private $username = "root";
-    private $password = "usbw";
+    private $servername;
+    private $username;
+    private $password;
     private $dbname = "boekhouding_sc";
+
+    function get_db_credentials(){
+        // Read the JSON file  
+        $json = file_get_contents(__DIR__."/../../credentials.json"); 
+        
+        // Decode the JSON file 
+        $json_data = json_decode($json,true); 
+        
+        // Display data 
+        $this->servername = $json_data["data"][0]["servername"]; 
+        $this->username = $json_data["data"][0]["username"]; 
+        $this->password = $json_data["data"][0]["password"]; 
+    }
 
     function print_table(){
         $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
@@ -31,7 +44,7 @@ class expenses_class{
         // output data of each row
             while($row = $result->fetch_assoc()) {
                 echo "<tr><td>".$row["id"]."</td><td>" . $row["date"]. "</td><td>" . $row["title"]. "</td><td>" . $row["description"]."</td>
-                <td>&euro; " . $row["amount"]. " </td><td>" . $row["target"]. "</td><td>" . $row["category"]. "</td><td>" . $row["finished"]. "</td></tr>";
+                <td>&euro; " . $row["amount"]. " </td><td>" . $row["target"]. "</td><td>" . $row["category"]. "</td><td>" . $row["finished"]. "</td><td><form name='add_expense' method='post' action='#'><input type='hidden' id=id_number name=id_number value=".$row["id"]."><input type='submit' value='Aanpassen' name='change_expense'></form></td></tr>";
             }
         } 
         /* else {
@@ -39,6 +52,28 @@ class expenses_class{
         } */
         $conn->close();
     }
+
+    function get_data($id_number){
+        $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+        $sql = "SELECT * FROM expenses_stam WHERE id=$id_number";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $conn->close();
+        return [$row["id"], $row["date"], $row["title"], $row["description"], $row["amount"], $row["target"], $row["category"], $row["finished"]];
+    }
+
+    function change_expense($id_number, $date, $title, $description, $amount, $target, $category, $complete){
+        $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+        $sql = "UPDATE expenses_stam SET date='$date', title='$title', description='$description', amount=$amount, target='$target', category='$category', finished='$complete'
+        WHERE id = $id_number";
+        if ($conn->query($sql) === TRUE) {
+            echo "Record updated successfully";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+        $conn->close();
+    }
+
     function total_out(){
         $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
         $sql = "SELECT sum(amount) as total_amount FROM expenses_stam ";
@@ -85,6 +120,15 @@ class expenses_class{
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
         $conn->close();
+    }
+    function get_last_id(){
+        $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+        $sql = "SELECT max(id) as id FROM expenses_stam ";
+        $result = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $last_id = $row["id"];
+        $conn->close();
+        return $last_id;
     }
 }
 /* $total_balance = new total_balance();
