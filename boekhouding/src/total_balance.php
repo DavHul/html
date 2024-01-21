@@ -1,9 +1,22 @@
 <?php
 class total_balance{
-    private $servername = "localhost";
-    private $username = "root";
-    private $password = "usbw";
+    private $servername;
+    private $username;
+    private $password;
     private $dbname = "boekhouding_sc";
+
+    function get_db_credentials(){
+        // Read the JSON file  
+        $json = file_get_contents(__DIR__."/../../credentials.json"); 
+        
+        // Decode the JSON file 
+        $json_data = json_decode($json,true); 
+        
+        // Display data 
+        $this->servername = $json_data["data"][0]["servername"]; 
+        $this->username = $json_data["data"][0]["username"]; 
+        $this->password = $json_data["data"][0]["password"]; 
+    }
 
     function print_table(){
         $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
@@ -25,6 +38,110 @@ class total_balance{
     function print_html_table(){
         $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
         $sql = "SELECT * FROM total_stam";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+        // output data of each row
+            while($row = $result->fetch_assoc()) {
+                echo "<tr><td>".$row["id"]."</td><td>" . $row["transaction_id"]. "</td><td>" . $row["direction"]. "</td><td>" . $row["date"]."</td>
+                <td>&euro; " . $row["amount"]. " </td><td>&euro; " . $row["balance_before"]. "</td><td>&euro; " . $row["balance_after"]. "</td></tr>";
+            }
+        } else {
+            echo "0 results";
+        }
+        $conn->close();
+    }
+    function print_data_array(){
+        $array_collection = array();
+        $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+        
+        $sql = "SELECT * FROM total_stam";
+        $result = $conn->query($sql);
+        $total_array = array();
+
+        if ($result->num_rows > 0) {
+        // output data of each row
+            while($row = $result->fetch_assoc()) {
+                array_push($total_array, array($row["id"], $row["transaction_id"], $row["direction"], $row["date"], $row["amount"], $row["balance_before"], $row["balance_after"]));
+            }
+        }
+        array_push($array_collection, $total_array);
+
+        $sql = "SELECT * FROM income_stam";
+        $result = $conn->query($sql);
+        $income_array = array();
+
+        if ($result->num_rows > 0) {
+        // output data of each row
+            while($row = $result->fetch_assoc()) {
+                array_push($income_array, array($row["id"], $row["date"], $row["title"], $row["description"], $row["amount"], $row["category"], $row["origin"], $row["finished"]));
+            }
+        }
+        array_push($array_collection, $income_array);
+
+        $sql = "SELECT * FROM expenses_stam";
+        $result = $conn->query($sql);
+        $expense_array = array();
+
+        if ($result->num_rows > 0) {
+        // output data of each row
+            while($row = $result->fetch_assoc()) {
+                array_push($expense_array, array($row["id"], $row["date"], $row["title"], $row["description"], $row["amount"], $row["target"], $row["category"], $row["finished"]));
+            }
+        }
+        array_push($array_collection, $expense_array);
+        
+        $conn->close();
+        echo json_encode($array_collection);
+    }
+
+    function print_year_data_array($year){
+        $array_collection = array();
+        $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+        
+        $sql = "SELECT * FROM total_stam WHERE date LIKE '%$year%'";
+        $result = $conn->query($sql);
+        $total_array = array();
+
+        if ($result->num_rows > 0) {
+        // output data of each row
+            while($row = $result->fetch_assoc()) {
+                array_push($total_array, array($row["id"], $row["transaction_id"], $row["direction"], $row["date"], $row["amount"], $row["balance_before"], $row["balance_after"]));
+            }
+        }
+        array_push($array_collection, $total_array);
+
+        $sql = "SELECT * FROM income_stam WHERE date LIKE '%$year%'";
+        $result = $conn->query($sql);
+        $income_array = array();
+
+        if ($result->num_rows > 0) {
+        // output data of each row
+            while($row = $result->fetch_assoc()) {
+                array_push($income_array, array($row["id"], $row["date"], $row["title"], $row["description"], $row["amount"], $row["category"], $row["origin"], $row["finished"]));
+            }
+        }
+        array_push($array_collection, $income_array);
+
+        $sql = "SELECT * FROM expenses_stam WHERE date LIKE '%$year%'";
+        $result = $conn->query($sql);
+        $expense_array = array();
+
+        if ($result->num_rows > 0) {
+        // output data of each row
+            while($row = $result->fetch_assoc()) {
+                array_push($expense_array, array($row["id"], $row["date"], $row["title"], $row["description"], $row["amount"], $row["target"], $row["category"], $row["finished"]));
+            }
+        }
+        array_push($array_collection, $expense_array);
+        
+        $conn->close();
+        echo json_encode($array_collection);
+    }
+
+    function print_html_year_table($year){
+        $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+        $sql = "SELECT * FROM total_stam WHERE date LIKE '%$year%'";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
