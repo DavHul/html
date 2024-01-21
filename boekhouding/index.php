@@ -4,6 +4,7 @@
         <?php
           include_once './src/login.php';
           $login_class = new login();
+          $login_class->get_db_credentials();
         ?>
         <link rel="stylesheet" href="src/styles.css">
     </head>
