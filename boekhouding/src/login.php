@@ -1,10 +1,23 @@
 <?php
 class login{
-    private $servername = "localhost";
-    private $username = "root";
-    private $password = "usbw";
+    private $servername;
+    private $username;
+    private $password;
     private $dbname = "boekhouding_sc";
     private $value;
+
+    function get_db_credentials(){
+        // Read the JSON file  
+        $json = file_get_contents(__DIR__."/../../credentials.json"); 
+        
+        // Decode the JSON file 
+        $json_data = json_decode($json,true); 
+        
+        // Display data 
+        $this->servername = $json_data["data"][0]["servername"]; 
+        $this->username = $json_data["data"][0]["username"]; 
+        $this->password = $json_data["data"][0]["password"]; 
+    }
 
     function print_table(){
         $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
