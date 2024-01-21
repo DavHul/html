@@ -17,7 +17,7 @@
         </div>
         <div id="login_form" class="total_screen">
         ';
-        if (($_SERVER["REQUEST_METHOD"] != "POST") or (isset($_POST["inloggen"]))){
+        if (($_SERVER["REQUEST_METHOD"] != "POST")){
           echo "<p style='color:white;font-size: 40px;'>Login</p>
           <div>
           <p>Voer uw gebruikersnaam en wachtwoord in om door te gaan.</p>
