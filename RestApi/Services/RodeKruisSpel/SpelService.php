@@ -42,7 +42,7 @@ class RK_spel
 
     public function GetGameById($GameId)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM RK_spel WHERE Id = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM rk_spel WHERE Id = ?");
 
         if (!$stmt) {
             // Fout in voorbereiding van de query
@@ -69,7 +69,7 @@ class RK_spel
 
     public function CreateGame($Name, $AdminId, $Code)
     {
-        $stmt = $this->conn->prepare("INSERT INTO RK_spel (Naam, AdminId, Code) VALUES (?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO rk_spel (Naam, AdminId, Code) VALUES (?, ?, ?)");
 
         if (!$stmt) {
             // Fout in voorbereiding van de query
@@ -89,7 +89,7 @@ class RK_spel
 
     public function UpdateGame($Name, $Code, $GameId)
     {
-        $stmt = $this->conn->prepare("UPDATE RK_spel SET naam = ?, code = ? WHERE id = ?");
+        $stmt = $this->conn->prepare("UPDATE rk_spel SET naam = ?, code = ? WHERE id = ?");
         
         if (!$stmt) {
             // Fout in voorbereiding van de query
