@@ -1,5 +1,5 @@
 <?php
-class RK_CasusBeoordeling
+class rk_casusbeoordeling
 {
     private $conn;
     public function __construct($conn)
@@ -9,7 +9,7 @@ class RK_CasusBeoordeling
 
     public function GetBeoordelingByTeamAndCasusId($TeamId, $CasusId)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM RK_CasusBeoordeling WHERE TeamId = ? AND CasusId = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM rk_casusbeoordeling WHERE TeamId = ? AND CasusId = ?");
 
         if (!$stmt) {
             // Fout in voorbereiding van de query
@@ -30,7 +30,7 @@ class RK_CasusBeoordeling
 
     public function CreateBeoordeling($CasusId, $TeamId, $PuntenCentralist, $PuntenSlachtoffer)
     {
-        $stmt = $this->conn->prepare("INSERT INTO RK_CasusBeoordeling (CasusId, TeamId, PuntenCentralist, PuntenSlachtoffer) VALUES (?, ?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO rk_casusbeoordeling (CasusId, TeamId, PuntenCentralist, PuntenSlachtoffer) VALUES (?, ?, ?, ?)");
 
         if (!$stmt) {
             // Fout in voorbereiding van de query
@@ -50,7 +50,7 @@ class RK_CasusBeoordeling
 
     public function UpdateBeoordeling($BeoordelingId, $CasusId, $TeamId, $PuntenCentralist, $PuntenSlachtoffer)
     {
-       $stmt = $this->conn->prepare("UPDATE RK_CasusBeoordeling SET CasusId = ?, TeamId = ?, PuntenCentralist = ?, PuntenSlachtoffer = ? WHERE id = ?");
+       $stmt = $this->conn->prepare("UPDATE rk_casusbeoordeling SET CasusId = ?, TeamId = ?, PuntenCentralist = ?, PuntenSlachtoffer = ? WHERE id = ?");
         
         if (!$stmt) {
             // Fout in voorbereiding van de query
@@ -70,7 +70,7 @@ class RK_CasusBeoordeling
 
     public function GetAllBeoordelingenByTeamId($TeamId)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM RK_CasusBeoordeling WHERE TeamId = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM rk_casusbeoordeling WHERE TeamId = ?");
         $stmt->bind_param("i", $TeamId);
         $stmt->execute();
         $result = $stmt->get_result();

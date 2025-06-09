@@ -9,7 +9,7 @@ class RK_KoppelCode
 
     public function GetDataByCodeAndSpelId($Code, $GameId)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM RK_KoppelCode WHERE Code = ? AND SpelId = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM rk_koppelcode WHERE Code = ? AND SpelId = ?");
 
         if (!$stmt) {
             // Fout in voorbereiding van de query

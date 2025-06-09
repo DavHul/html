@@ -25,7 +25,7 @@ class RK_antwoord
         //Checken of al eerder beantwoord door in tabel te kijken op question id en team id
         $previousAnswer = $this->GetAnswerByQuestionIdAndTeamId($QuestionId, $TeamId);
         if ($previousAnswer){
-            $stmt = $this->conn->prepare("UPDATE RK_Antwoorden SET GegevenAntwoord=?, AntwoordCorrect = ?, PuntenVerdiend = ? WHERE Id=?");
+            $stmt = $this->conn->prepare("UPDATE rk_antwoorden SET GegevenAntwoord=?, AntwoordCorrect = ?, PuntenVerdiend = ? WHERE Id=?");
     
             if (!$stmt) {
                 // Fout in voorbereiding van de query
@@ -42,7 +42,7 @@ class RK_antwoord
         
             return true;
         }else{
-            $stmt = $this->conn->prepare("INSERT INTO RK_Antwoorden
+            $stmt = $this->conn->prepare("INSERT INTO rk_antwoorden
             (VraagId, TeamId, GegevenAntwoord, AntwoordCorrect, PuntenVerdiend)
             VALUES (?, ?, ?, ?, ?)");
         
@@ -66,7 +66,7 @@ class RK_antwoord
 
     public function GetAnswerByQuestionIdAndTeamId($QuestionId, $TeamId)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM RK_Antwoorden WHERE VraagId = ? AND TeamId = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM rk_antwoorden WHERE VraagId = ? AND TeamId = ?");
 
         if (!$stmt) {
             // Fout in voorbereiding van de query
@@ -93,7 +93,7 @@ class RK_antwoord
 
     public function DeleteAnswer($QuestionId)
     {
-        $stmt = $this->conn->prepare("DELETE FROM RK_Antwoorden WHERE Id = ?");
+        $stmt = $this->conn->prepare("DELETE FROM rk_antwoorden WHERE Id = ?");
 
         if (!$stmt) {
             // Fout in voorbereiding van de query
@@ -113,7 +113,7 @@ class RK_antwoord
 
     public function GetAllAnswersByTeamId($TeamId)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM RK_Antwoorden WHERE TeamId = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM rk_antwoorden WHERE TeamId = ?");
         $stmt->bind_param("i", $TeamId);
         $stmt->execute();
         $result = $stmt->get_result();

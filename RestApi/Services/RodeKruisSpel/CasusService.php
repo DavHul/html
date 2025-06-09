@@ -1,5 +1,5 @@
 <?php
-class RK_Casus
+class rk_Casus
 {
     private $conn;
     public function __construct($conn)
@@ -9,10 +9,10 @@ class RK_Casus
 
     public function GetAllCasussenByGameId($GameId)
     {
-        $sql = "SELECT RK_Casus.*, RK_KoppelCode.Code 
-                FROM RK_Casus 
-                INNER JOIN RK_KoppelCode ON RK_Casus.Id = RK_KoppelCode.CasusId 
-                WHERE RK_KoppelCode.SpelId = ?";
+        $sql = "SELECT rk_Casus.*, rk_koppelcode.Code 
+                FROM rk_Casus 
+                INNER JOIN rk_koppelcode ON rk_Casus.Id = rk_koppelcode.CasusId 
+                WHERE rk_koppelcode.SpelId = ?";
 
         $stmt = $this->conn->prepare($sql);
 
@@ -41,10 +41,10 @@ class RK_Casus
 
     public function GetCasusByCode($CasusCode)
     {
-        $sql = "SELECT RK_Casus.*, RK_KoppelCode.Code 
-                FROM RK_Casus 
-                INNER JOIN RK_KoppelCode ON RK_Casus.Id = RK_KoppelCode.CasusId 
-                WHERE RK_KoppelCode.Code = ?";
+        $sql = "SELECT rk_Casus.*, rk_koppelcode.Code 
+                FROM rk_Casus 
+                INNER JOIN rk_koppelcode ON rk_casus.Id = rk_koppelcode.CasusId 
+                WHERE rk_koppelcode.Code = ?";
 
         $stmt = $this->conn->prepare($sql);
 
@@ -69,7 +69,7 @@ class RK_Casus
     public function GetCasusById($Id)
     {
         $sql = "SELECT * 
-                FROM RK_Casus 
+                FROM rk_Casus 
                 WHERE Id = ?";
 
         $stmt = $this->conn->prepare($sql);
@@ -93,7 +93,7 @@ class RK_Casus
     }
 
     public function CreateCasus($values, $gameId, $code) {
-        $stmt = $this->conn->prepare("INSERT INTO RK_Casus (
+        $stmt = $this->conn->prepare("INSERT INTO rk_casus (
             Naam, MaximaalPunten, InformatieAnder, InformatieZelf, NaamSlachtoffer, GeboorteDatum,
             Geslacht, Woonplaats, Toedracht, LuchtwegStatus, AdemhalingFrequentie, AdemhalingSymetrie,
             HartslagFrequentie, HartslagRitme, HartslagKracht, BewustzijnScore, Temperatuur,
@@ -122,9 +122,9 @@ class RK_Casus
             return false;
         }
 
-        //In KoppelCode tabel zetten
+        //In koppelcode tabel zetten
         $last_id = $this->conn->insert_id;
-        $stmt = $this->conn->prepare("INSERT INTO RK_KoppelCode 
+        $stmt = $this->conn->prepare("INSERT INTO rk_koppelcode 
             (Code, VraagId, CasusId, SpelId)
             VALUES (?, ?, ?, ?)");
         
@@ -147,7 +147,7 @@ class RK_Casus
     }
 
     public function UpdateCasus($values, $casusId) {
-        $stmt = $this->conn->prepare("UPDATE RK_Casus SET
+        $stmt = $this->conn->prepare("UPDATE rk_casus SET
             Naam = ?, MaximaalPunten = ?, InformatieAnder = ?, InformatieZelf = ?, NaamSlachtoffer = ?, GeboorteDatum = ?,
             Geslacht = ?, Woonplaats = ?, Toedracht = ?, LuchtwegStatus = ?, AdemhalingFrequentie = ?, AdemhalingSymetrie = ?,
             HartslagFrequentie = ?, HartslagRitme = ?, HartslagKracht = ?, BewustzijnScore = ?, Temperatuur = ?,
@@ -179,7 +179,7 @@ class RK_Casus
 
     public function DeleteCasus($CasusId)
     {
-        $stmt = $this->conn->prepare("DELETE FROM RK_Casus WHERE Id = ?");
+        $stmt = $this->conn->prepare("DELETE FROM rk_casus WHERE Id = ?");
 
         if (!$stmt) {
             printf("Prepare failed: (%s) %s\n", $this->conn->errno, $this->conn->error);
@@ -193,7 +193,7 @@ class RK_Casus
             return false;
         }
 
-        $stmt = $this->conn->prepare("DELETE FROM RK_KoppelCode WHERE CasusId = ?");
+        $stmt = $this->conn->prepare("DELETE FROM rk_koppelcode WHERE CasusId = ?");
 
         if (!$stmt) {
             printf("Prepare failed: (%s) %s\n", $this->conn->errno, $this->conn->error);

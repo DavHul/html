@@ -1,5 +1,5 @@
 <?php
-class RK_vraag
+class rk_vraag
 {
     private $conn;
     public function __construct($conn)
@@ -9,7 +9,7 @@ class RK_vraag
 
     public function GetAllQuestionsByGameId($GameId)
     {
-        $stmt = $this->conn->prepare("SELECT RK_vragen.Id as Id, Vraagtekst, Antwoord1, Antwoord2, Antwoord3, Antwoord4, GoedeAntwoord, AantalPunten, RK_KoppelCode.Code FROM RK_vragen INNER JOIN RK_KoppelCode ON RK_vragen.Id = RK_KoppelCode.VraagId WHERE RK_KoppelCode.SpelId = ?");
+        $stmt = $this->conn->prepare("SELECT rk_vragen.Id as Id, Vraagtekst, Antwoord1, Antwoord2, Antwoord3, Antwoord4, GoedeAntwoord, AantalPunten, rk_koppelcode.Code FROM rk_vragen INNER JOIN rk_koppelcode ON rk_vragen.Id = rk_koppelcode.VraagId WHERE rk_koppelcode.SpelId = ?");
 
         if (!$stmt) {
             // Fout in voorbereiding van de query
@@ -42,7 +42,7 @@ class RK_vraag
 
     public function GetQuestionByCode($QuestionCode, $spelId)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM RK_Vragen INNER JOIN RK_KoppelCode ON RK_vragen.Id = RK_KoppelCode.VraagId WHERE RK_KoppelCode.Code = ? AND RK_KoppelCode.SpelId = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM rk_Vragen INNER JOIN rk_koppelcode ON rk_vragen.Id = rk_koppelcode.VraagId WHERE rk_koppelcode.Code = ? AND rk_koppelcode.SpelId = ?");
 
         if (!$stmt) {
             // Fout in voorbereiding van de query
@@ -69,7 +69,7 @@ class RK_vraag
 
     public function GetQuestionById($QuestionId)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM RK_Vragen WHERE Id = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM rk_Vragen WHERE Id = ?");
 
         if (!$stmt) {
             // Fout in voorbereiding van de query
@@ -96,7 +96,7 @@ class RK_vraag
 
     public function CreateQuestion($vraagtekst, $a1, $a2, $a3, $a4, $correct, $punten, $code, $spelId)
     {
-        $stmt = $this->conn->prepare("INSERT INTO RK_vragen 
+        $stmt = $this->conn->prepare("INSERT INTO rk_vragen 
             (Vraagtekst, Antwoord1, Antwoord2, Antwoord3, Antwoord4, GoedeAntwoord, AantalPunten)
             VALUES (?, ?, ?, ?, ?, ?, ?)");
         
@@ -115,7 +115,7 @@ class RK_vraag
         }
 
         $last_id = $this->conn->insert_id;
-        $stmt = $this->conn->prepare("INSERT INTO RK_KoppelCode 
+        $stmt = $this->conn->prepare("INSERT INTO rk_koppelcode 
             (Code, VraagId, CasusId, SpelId)
             VALUES (?, ?, ?, ?)");
         
@@ -139,7 +139,7 @@ class RK_vraag
 
     public function UpdateQuestion($vraagtekst, $a1, $a2, $a3, $a4, $correct, $punten, $vraagId)
     {
-        $stmt = $this->conn->prepare("UPDATE RK_vragen SET Vraagtekst=?, Antwoord1=?, Antwoord2=?, Antwoord3=?, Antwoord4=?, GoedeAntwoord=?, AantalPunten=? WHERE Id=?");
+        $stmt = $this->conn->prepare("UPDATE rk_vragen SET Vraagtekst=?, Antwoord1=?, Antwoord2=?, Antwoord3=?, Antwoord4=?, GoedeAntwoord=?, AantalPunten=? WHERE Id=?");
     
         if (!$stmt) {
             // Fout in voorbereiding van de query
@@ -159,7 +159,7 @@ class RK_vraag
 
     public function DeleteQuestion($QuestionId)
     {
-        $stmt = $this->conn->prepare("DELETE FROM RK_vragen WHERE Id = ?");
+        $stmt = $this->conn->prepare("DELETE FROM rk_vragen WHERE Id = ?");
 
         if (!$stmt) {
             // Fout in voorbereiding van de query
@@ -174,7 +174,7 @@ class RK_vraag
             return false;
         }
 
-        $stmt = $this->conn->prepare("DELETE FROM Rk_KoppelCode WHERE VraagId = ?");
+        $stmt = $this->conn->prepare("DELETE FROM rk_koppelcode WHERE VraagId = ?");
 
         if (!$stmt) {
             // Fout in voorbereiding van de query
