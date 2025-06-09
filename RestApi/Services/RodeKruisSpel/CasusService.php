@@ -9,9 +9,9 @@ class rk_Casus
 
     public function GetAllCasussenByGameId($GameId)
     {
-        $sql = "SELECT rk_Casus.*, rk_koppelcode.Code 
-                FROM rk_Casus 
-                INNER JOIN rk_koppelcode ON rk_Casus.Id = rk_koppelcode.CasusId 
+        $sql = "SELECT rk_casus.*, rk_koppelcode.Code 
+                FROM rk_casus 
+                INNER JOIN rk_koppelcode ON rk_casus.Id = rk_koppelcode.CasusId 
                 WHERE rk_koppelcode.SpelId = ?";
 
         $stmt = $this->conn->prepare($sql);
@@ -41,8 +41,8 @@ class rk_Casus
 
     public function GetCasusByCode($CasusCode)
     {
-        $sql = "SELECT rk_Casus.*, rk_koppelcode.Code 
-                FROM rk_Casus 
+        $sql = "SELECT rk_casus.*, rk_koppelcode.Code 
+                FROM rk_casus 
                 INNER JOIN rk_koppelcode ON rk_casus.Id = rk_koppelcode.CasusId 
                 WHERE rk_koppelcode.Code = ?";
 
@@ -69,7 +69,7 @@ class rk_Casus
     public function GetCasusById($Id)
     {
         $sql = "SELECT * 
-                FROM rk_Casus 
+                FROM rk_casus 
                 WHERE Id = ?";
 
         $stmt = $this->conn->prepare($sql);
