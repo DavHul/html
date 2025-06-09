@@ -42,7 +42,7 @@ class rk_vraag
 
     public function GetQuestionByCode($QuestionCode, $spelId)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM rk_Vragen INNER JOIN rk_koppelcode ON rk_vragen.Id = rk_koppelcode.VraagId WHERE rk_koppelcode.Code = ? AND rk_koppelcode.SpelId = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM rk_vragen INNER JOIN rk_koppelcode ON rk_vragen.Id = rk_koppelcode.VraagId WHERE rk_koppelcode.Code = ? AND rk_koppelcode.SpelId = ?");
 
         if (!$stmt) {
             // Fout in voorbereiding van de query
@@ -69,7 +69,7 @@ class rk_vraag
 
     public function GetQuestionById($QuestionId)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM rk_Vragen WHERE Id = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM rk_vragen WHERE Id = ?");
 
         if (!$stmt) {
             // Fout in voorbereiding van de query
