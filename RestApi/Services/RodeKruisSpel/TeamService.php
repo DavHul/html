@@ -9,7 +9,7 @@ class RK_team
 
     public function GetAllTeamsByGameId($SpelId)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM RK_team WHERE SpelId = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM rk_team WHERE SpelId = ?");
 
         if (!$stmt) {
             // Fout in voorbereiding van de query
@@ -42,7 +42,7 @@ class RK_team
 
     public function GetTeamByCredentials($SpelCode, $TeamWachtwoord)
     {
-        $stmt = $this->conn->prepare("SELECT Id FROM RK_spel WHERE Code = ?");
+        $stmt = $this->conn->prepare("SELECT Id FROM rk_spel WHERE Code = ?");
         if (!$stmt) {
             printf("Prepare failed (spel): (%s) %s\n", $this->conn->errno, $this->conn->error);
             return null;
@@ -60,7 +60,7 @@ class RK_team
         $spelId = $spel['Id'];
 
         // Stap 2: Zoek team met dat spelId en wachtwoord
-        $stmt2 = $this->conn->prepare("SELECT * FROM RK_team WHERE SpelId = ? AND Wachtwoord = ?");
+        $stmt2 = $this->conn->prepare("SELECT * FROM rk_team WHERE SpelId = ? AND Wachtwoord = ?");
         if (!$stmt2) {
             printf("Prepare failed (team): (%s) %s\n", $this->conn->errno, $this->conn->error);
             return null;
@@ -79,7 +79,7 @@ class RK_team
 
     public function CreateTeam($Name, $Password, $GameId)
     {
-        $stmt = $this->conn->prepare("INSERT INTO RK_team (Naam, Wachtwoord, SpelId) VALUES (?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO rk_team (Naam, Wachtwoord, SpelId) VALUES (?, ?, ?)");
 
         if (!$stmt) {
             // Fout in voorbereiding van de query
@@ -99,7 +99,7 @@ class RK_team
 
     public function DeleteTeam($TeamId)
     {
-        $stmt = $this->conn->prepare("DELETE FROM RK_team WHERE Id = ?");
+        $stmt = $this->conn->prepare("DELETE FROM rk_team WHERE Id = ?");
 
         if (!$stmt) {
             // Fout in voorbereiding van de query
