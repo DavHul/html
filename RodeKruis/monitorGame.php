@@ -59,103 +59,102 @@ if ($selectedTeamId && $selectedCasusId) {
 <head>
     <meta charset="UTF-8">
     <title>Monitoring Spel <?= htmlspecialchars($gameId) ?></title>
-    <style>
-        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        th { background-color: #f5f5f5; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Monitoring voor spel ID <?= htmlspecialchars($gameId) ?></h1>
-    <h3>Selecteer team en casus</h3>
-        <form id="selectieFormulier" method="post">
-            <label>Team:</label><br>
-            <select name="team_id" id="teamSelect" required>
-                <option value="">-- Kies een team --</option>
-                <?php foreach ($teams as $team): ?>
-                    <option value="<?= $team['Id'] ?>" <?= $selectedTeamId == $team['Id'] ? 'selected' : '' ?>>
-                        <?= htmlspecialchars($team['Naam']) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select><br><br>
+    <div class="container">
+        <h1>Monitoring voor spel ID <?= htmlspecialchars($gameId) ?></h1>
+        <h3>Selecteer team en casus</h3>
+            <form id="selectieFormulier" method="post">
+                <label>Team:</label><br>
+                <select name="team_id" id="teamSelect" required>
+                    <option value="">-- Kies een team --</option>
+                    <?php foreach ($teams as $team): ?>
+                        <option value="<?= $team['Id'] ?>" <?= $selectedTeamId == $team['Id'] ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($team['Naam']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select><br><br>
 
-            <label>Casus:</label><br>
-            <select name="casus_id" id="casusSelect" required>
-                <option value="">-- Kies een casus --</option>
-                <?php foreach ($casussen as $casus): ?>
-                    <option value="<?= $casus['Id'] ?>" <?= $selectedCasusId == $casus['Id'] ? 'selected' : '' ?>>
-                        <?= htmlspecialchars($casus['Naam']) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </form>
-        <?php if ($selectedTeamId && $selectedCasusId): ?>
-            <hr>
-            <h3>Beoordeel casus voor geselecteerd team</h3>
-            <form method="post">
-                <input type="hidden" name="team_id" value="<?= $selectedTeamId ?>">
-                <input type="hidden" name="casus_id" value="<?= $selectedCasusId ?>">
-
-                <label>Punten centralist (0-10):</label>
-                <input type="number" name="punten_centralist" min="0" max="10"
-                    value="<?= $beoordeling ? htmlspecialchars($beoordeling['PuntenCentralist']) : '' ?>" required><br><br>
-
-                <button type="submit" name="score_submit">Verzend score</button>
+                <label>Casus:</label><br>
+                <select name="casus_id" id="casusSelect" required>
+                    <option value="">-- Kies een casus --</option>
+                    <?php foreach ($casussen as $casus): ?>
+                        <option value="<?= $casus['Id'] ?>" <?= $selectedCasusId == $casus['Id'] ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($casus['Naam']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </form>
-        <?php endif; ?>
-        <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const teamSelect = document.getElementById('teamSelect');
-            const casusSelect = document.getElementById('casusSelect');
-            const form = document.getElementById('selectieFormulier');
+            <?php if ($selectedTeamId && $selectedCasusId): ?>
+                <hr>
+                <h3>Beoordeel casus voor geselecteerd team</h3>
+                <form method="post">
+                    <input type="hidden" name="team_id" value="<?= $selectedTeamId ?>">
+                    <input type="hidden" name="casus_id" value="<?= $selectedCasusId ?>">
 
-            function checkSubmit() {
-                if (teamSelect.value && casusSelect.value) {
-                    form.submit();
+                    <label>Punten centralist (0-10):</label>
+                    <input type="number" name="punten_centralist" min="0" max="10"
+                        value="<?= $beoordeling ? htmlspecialchars($beoordeling['PuntenCentralist']) : '' ?>" required><br><br>
+
+                    <button type="submit" name="score_submit">Verzend score</button>
+                </form>
+            <?php endif; ?>
+            <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const teamSelect = document.getElementById('teamSelect');
+                const casusSelect = document.getElementById('casusSelect');
+                const form = document.getElementById('selectieFormulier');
+
+                function checkSubmit() {
+                    if (teamSelect.value && casusSelect.value) {
+                        form.submit();
+                    }
                 }
-            }
 
-            teamSelect.addEventListener('change', checkSubmit);
-            casusSelect.addEventListener('change', checkSubmit);
-        });
-        </script>
-    <table>
-        <thead>
-            <tr>
-                <th>Teamnaam</th>
-                <th>Punten Casussen</th>
-                <th>Punten Vragen</th>
-                <th>Totaal</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($teams as $team): ?>
-                <?php
-                    $puntenCasussen = 0;
-                    $puntenVragen = 0;
-
-                    // Casuspunten optellen
-                    $beoordelingen = $beoordelingObj->GetAllBeoordelingenByTeamId($team['Id']);
-                    foreach ($beoordelingen as $b) {
-                        $puntenCasussen += intval($b['PuntenCentralist']) + intval($b['PuntenSlachtoffer']);
-                    }
-
-                    // Vraagpunten optellen
-                    $antwoorden = $antwoordObj->GetAllAnswersByTeamId($team['Id']);
-                    foreach ($antwoorden as $a) {
-                        $puntenVragen += intval($a['PuntenVerdiend']);
-                    }
-
-                    $totaal = $puntenCasussen + $puntenVragen;
-                ?>
+                teamSelect.addEventListener('change', checkSubmit);
+                casusSelect.addEventListener('change', checkSubmit);
+            });
+            </script>
+        <table>
+            <thead>
                 <tr>
-                    <td><?= htmlspecialchars($team['Naam']) ?></td>
-                    <td><?= $puntenCasussen ?></td>
-                    <td><?= $puntenVragen ?></td>
-                    <td><?= $totaal ?></td>
+                    <th>Teamnaam</th>
+                    <th>Punten Casussen</th>
+                    <th>Punten Vragen</th>
+                    <th>Totaal</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php foreach ($teams as $team): ?>
+                    <?php
+                        $puntenCasussen = 0;
+                        $puntenVragen = 0;
+
+                        // Casuspunten optellen
+                        $beoordelingen = $beoordelingObj->GetAllBeoordelingenByTeamId($team['Id']);
+                        foreach ($beoordelingen as $b) {
+                            $puntenCasussen += intval($b['PuntenCentralist']) + intval($b['PuntenSlachtoffer']);
+                        }
+
+                        // Vraagpunten optellen
+                        $antwoorden = $antwoordObj->GetAllAnswersByTeamId($team['Id']);
+                        foreach ($antwoorden as $a) {
+                            $puntenVragen += intval($a['PuntenVerdiend']);
+                        }
+
+                        $totaal = $puntenCasussen + $puntenVragen;
+                    ?>
+                    <tr>
+                        <td><?= htmlspecialchars($team['Naam']) ?></td>
+                        <td><?= $puntenCasussen ?></td>
+                        <td><?= $puntenVragen ?></td>
+                        <td><?= $totaal ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

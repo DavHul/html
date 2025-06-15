@@ -45,54 +45,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 <head>
+    <meta charset="UTF-8">
     <title>Login</title>
-    <style>
-        .hidden { display: none; }
-        .toggle { margin-bottom: 10px; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
     <script>
         function toggleLogin(type) {
             document.getElementById('admin-fields').style.display = (type === 'admin') ? 'block' : 'none';
             document.getElementById('team-fields').style.display = (type === 'team') ? 'block' : 'none';
         }
+
+        // Herstel juiste weergave bij paginalaad
+        window.addEventListener('DOMContentLoaded', () => {
+            const selected = document.querySelector('input[name="login_type"]:checked').value;
+            toggleLogin(selected);
+        });
     </script>
 </head>
 <body>
-    <h2>Inloggen</h2>
+    <div class="container">
+        <h2>Inloggen</h2>
 
-    <?php if ($error): ?>
-        <p style="color:red;"><?= $error ?></p>
-    <?php endif; ?>
+        <?php if ($error): ?>
+            <p class="error"><?= htmlspecialchars($error) ?></p>
+        <?php endif; ?>
 
-    <form method="post">
-        <div class="toggle">
-            <label><input type="radio" name="login_type" value="admin" checked onchange="toggleLogin('admin')"> Admin</label>
-            <label><input type="radio" name="login_type" value="team" onchange="toggleLogin('team')"> Team</label>
-        </div>
+        <form method="post">
+            <div class="toggle">
+                <label><input type="radio" name="login_type" value="admin" checked onchange="toggleLogin('admin')"> Admin</label>
+                <label><input type="radio" name="login_type" value="team" onchange="toggleLogin('team')"> Team</label>
+            </div>
 
-        <div id="admin-fields">
-            <label>Gebruikersnaam:</label><br>
-            <input type="text" name="username"><br>
-            <label>Wachtwoord:</label><br>
-            <input type="password" name="password"><br>
-        </div>
+            <div id="admin-fields">
+                <label>Gebruikersnaam:</label>
+                <input type="text" name="username">
 
-        <div id="team-fields" class="hidden">
-            <label>Spelcode:</label><br>
-            <input type="text" name="gamecode"><br>
-            <label>Team wachtwoord:</label><br>
-            <input type="password" name="team_password"><br>
-        </div>
+                <label>Wachtwoord:</label>
+                <input type="password" name="password">
+            </div>
 
-        <button type="submit">Inloggen</button>
-    </form>
+            <div id="team-fields" class="hidden">
+                <label>Spelcode:</label>
+                <input type="text" name="gamecode">
 
-    <script>
-        // Zorgt ervoor dat juiste formulier bij paginaherlaad correct zichtbaar is
-        const selected = document.querySelector('input[name="login_type"]:checked').value;
-        toggleLogin(selected);
-    </script>
+                <label>Team wachtwoord:</label>
+                <input type="password" name="team_password">
+            </div>
+
+            <button type="submit">Inloggen</button>
+        </form>
+    </div>
 </body>
 </html>

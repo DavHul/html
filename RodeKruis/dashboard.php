@@ -35,74 +35,67 @@ $result = $spelObj->GetAllGamesByAdminId($user['Id']);
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 <head>
+    <meta charset="UTF-8">
     <title>Spellenoverzicht</title>
-    <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { padding: 8px 12px; border: 1px solid #ccc; }
-        a.button, button {
-            display: inline-block;
-            padding: 8px 12px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        a.button:hover, button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Spellenoverzicht</h1>
+    <div class="container">
+        <h1>Spellenoverzicht</h1>
 
-    <?php if ($success): ?><p style="color:green;"><?= $success ?></p><?php endif; ?>
-    <?php if ($error): ?><p style="color:red;"><?= $error ?></p><?php endif; ?>
+        <?php if ($success): ?>
+            <p class="message success"><?= htmlspecialchars($success) ?></p>
+        <?php endif; ?>
+        <?php if ($error): ?>
+            <p class="message error"><?= htmlspecialchars($error) ?></p>
+        <?php endif; ?>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Naam</th>
-                <th>Admin ID</th>
-                <th>Code</th>
-                <th>Instellen</th>
-                <th>Monitor</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($result as $data => $row):?>
+        <table>
+            <thead>
                 <tr>
-                    <td><?= htmlspecialchars($row['Id']) ?></td>
-                    <td><?= htmlspecialchars($row['Naam']) ?></td>
-                    <td><?= htmlspecialchars($row['AdminId']) ?></td>
-                    <td><?= htmlspecialchars($row['Code']) ?></td>
-                    <td>
-                        <a class="button" href="?select_id=<?= $row['Id'] ?>">Instellen</a>
-                    </td>
-                    <td>
-                        <a class="button" href="monitorGame.php?game_id=<?= $row['Id'] ?>">Monitor</a>
-                    </td>
+                    <th>ID</th>
+                    <th>Naam</th>
+                    <th>Admin ID</th>
+                    <th>Code</th>
+                    <th>Instellen</th>
+                    <th>Monitor</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php foreach ($result as $row): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($row['Id']) ?></td>
+                        <td><?= htmlspecialchars($row['Naam']) ?></td>
+                        <td><?= htmlspecialchars($row['AdminId']) ?></td>
+                        <td><?= htmlspecialchars($row['Code']) ?></td>
+                        <td>
+                            <a class="button" href="?select_id=<?= $row['Id'] ?>">Instellen</a>
+                        </td>
+                        <td>
+                            <a class="button" href="monitorGame.php?game_id=<?= $row['Id'] ?>">Monitor</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
 
-    <h2>Nieuw Spel Toevoegen</h2>
-    <form method="post">
-        <input type="hidden" name="create_game" value="1">
-        <label>Naam:</label><br>
-        <input type="text" name="naam"><br><br>
+        <h2>Nieuw Spel Toevoegen</h2>
+        <form method="post">
+            <input type="hidden" name="create_game" value="1">
 
-        <input type="hidden" name="admin_id" value=<?php $user['Id']?>>
+            <label for="naam">Naam:</label>
+            <input type="text" name="naam" id="naam" required>
 
-        <label>Code:</label><br>
-        <input type="text" name="code"><br><br>
+            <input type="hidden" name="admin_id" value="<?= htmlspecialchars($user['Id']) ?>">
 
-        <button type="submit">Spel aanmaken</button>
-    </form>
+            <label for="code">Code:</label>
+            <input type="text" name="code" id="code" required><br><br>
+
+            <button type="submit">Spel aanmaken</button>
+        </form>
+    </div>
 </body>
 </html>

@@ -89,84 +89,82 @@
     <head>
         <meta charset="UTF-8">
         <title>Team <?= htmlspecialchars($TeamName) ?></title>
-        <style>
-            table { border-collapse: collapse; width: 100%; margin-top: 20px; }
-            th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-            th { background-color: #f5f5f5; }
-        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
-    <h1>Welkom, team <?= htmlspecialchars($TeamName) ?></h1>
+        <div class="container">
+            <h1>Welkom, team <?= htmlspecialchars($TeamName) ?></h1>
 
-    <!-- Code invoeren -->
-    <form method="post">
-        <label>Voer code in:</label><br>
-        <input type="text" name="vraagcode" required>
-        <button type="submit">Zoek</button>
-    </form>
-
-    <?php if ($error): ?>
-        <p style="color:red;"><?= htmlspecialchars($error) ?></p>
-    <?php endif; ?>
-
-    <?php if ($vraag): ?>
-        <hr>
-        <form method="post">
-            <p><strong><?= htmlspecialchars($vraag['Vraagtekst']) ?></strong></p>
-            <input type="hidden" name="VraagId" value="<?= $vraag['Id'] ?>">
-
-            <?php for ($i = 1; $i <= 4; $i++): ?>
-                <?php $antwoord = $vraag["Antwoord$i"]; ?>
-                <?php if (!empty($antwoord)): ?>
-                    <label>
-                        <input type="radio" name="antwoord" value="<?= htmlspecialchars($antwoord) ?>"
-                            <?= ($previousAnswer && $previousAnswer['GegevenAntwoord'] === $antwoord) ? 'checked' : '' ?>>
-                        <?= htmlspecialchars($antwoord) ?>
-                    </label><br>
-                <?php endif; ?>
-            <?php endfor; ?>
-
-            <br>
-            <button type="submit">Verzend antwoord</button>
-        </form>
-
-    <?php elseif ($casus): ?>
-        <hr>
-        <h2>Casusinformatie</h2>
-        <table>
-            <?php
-            $velden = [
-                'Naam', 'MaximaalPunten', 'InformatieAnder', 'InformatieZelf', 'NaamSlachtoffer', 'GeboorteDatum',
-                'Geslacht', 'Woonplaats', 'Toedracht', 'LuchtwegStatus', 'AdemhalingFrequentie', 'AdemhalingSymetrie',
-                'HartslagFrequentie', 'HartslagRitme', 'HartslagKracht', 'BewustzijnScore', 'Temperatuur',
-                'Opmerkingen', 'Allergie', 'Medicatie', 'ZiekteGeschiedenis', 'Letsel', 'Omstandigheden'
-            ];
-            foreach ($velden as $veld):
-                if (isset($casus[$veld])):
-            ?>
-                <tr>
-                    <th><?= htmlspecialchars($veld) ?></th>
-                    <td><?= nl2br(htmlspecialchars($casus[$veld])) ?></td>
-                </tr>
-            <?php endif; endforeach; ?>
-        </table>
-        <?php if ($casus['MaximaalPunten'] == 20): ?>
-        <h3>Beoordeel deze casus</h3>
+            <!-- Code invoeren -->
             <form method="post">
-                <input type="hidden" name="casus_id" value="<?= htmlspecialchars($casus['Id']) ?>">
-
-                <!-- Verborgen input voor punten van de centralist -->
-                <input type="hidden" name="punten_centralist" value="<?= $beoordeling ? htmlspecialchars($beoordeling['PuntenCentralist']) : 0 ?>">
-
-                <!-- Invoerveld voor punten slachtoffer -->
-                <label>Punten slachtoffer (0-10):</label>
-                <input type="number" name="punten_slachtoffer" min="0" max="10"
-                    value="<?= $beoordeling ? htmlspecialchars($beoordeling['PuntenSlachtoffer']) : '' ?>" required>
-
-                <button type="submit" name="score_submit">Verzend score</button>
+                <label>Voer code in:</label><br>
+                <input type="text" name="vraagcode" required><br><br>
+                <button type="submit">Zoek</button>
             </form>
-        <?php endif; ?>
-    <?php endif; ?>
 
+            <?php if ($error): ?>
+                <p style="color:red;"><?= htmlspecialchars($error) ?></p>
+            <?php endif; ?>
+
+            <?php if ($vraag): ?>
+                <hr>
+                <form method="post">
+                    <p><strong><?= htmlspecialchars($vraag['Vraagtekst']) ?></strong></p>
+                    <input type="hidden" name="VraagId" value="<?= $vraag['Id'] ?>">
+
+                    <?php for ($i = 1; $i <= 4; $i++): ?>
+                        <?php $antwoord = $vraag["Antwoord$i"]; ?>
+                        <?php if (!empty($antwoord)): ?>
+                            <label>
+                                <input type="radio" name="antwoord" value="<?= htmlspecialchars($antwoord) ?>"
+                                    <?= ($previousAnswer && $previousAnswer['GegevenAntwoord'] === $antwoord) ? 'checked' : '' ?>>
+                                <?= htmlspecialchars($antwoord) ?>
+                            </label><br>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+
+                    <br>
+                    <button type="submit">Verzend antwoord</button>
+                </form>
+
+            <?php elseif ($casus): ?>
+                <hr>
+                <h2>Casusinformatie</h2>
+                <table>
+                    <?php
+                    $velden = [
+                        'Naam', 'MaximaalPunten', 'InformatieAnder', 'InformatieZelf', 'NaamSlachtoffer', 'GeboorteDatum',
+                        'Geslacht', 'Woonplaats', 'Toedracht', 'LuchtwegStatus', 'AdemhalingFrequentie', 'AdemhalingSymetrie',
+                        'HartslagFrequentie', 'HartslagRitme', 'HartslagKracht', 'BewustzijnScore', 'Temperatuur',
+                        'Opmerkingen', 'Allergie', 'Medicatie', 'ZiekteGeschiedenis', 'Letsel', 'Omstandigheden'
+                    ];
+                    foreach ($velden as $veld):
+                        if (isset($casus[$veld])):
+                    ?>
+                        <tr>
+                            <th><?= htmlspecialchars($veld) ?></th>
+                            <td><?= nl2br(htmlspecialchars($casus[$veld])) ?></td>
+                        </tr>
+                    <?php endif; endforeach; ?>
+                </table>
+                <?php if ($casus['MaximaalPunten'] == 20): ?>
+                <h2>Beoordeel deze casus</h2>
+                    <form method="post">
+                        <input type="hidden" name="casus_id" value="<?= htmlspecialchars($casus['Id']) ?>">
+
+                        <!-- Verborgen input voor punten van de centralist -->
+                        <input type="hidden" name="punten_centralist" value="<?= $beoordeling ? htmlspecialchars($beoordeling['PuntenCentralist']) : 0 ?>">
+
+                        <!-- Invoerveld voor punten slachtoffer -->
+                        <label>Punten slachtoffer (0-10):</label>
+                        <input type="number" name="punten_slachtoffer" min="0" max="10"
+                            value="<?= $beoordeling ? htmlspecialchars($beoordeling['PuntenSlachtoffer']) : '' ?>" required>
+
+                        <button type="submit" name="score_submit">Verzend score</button>
+                    </form>
+                <?php endif; ?>
+            <?php endif; ?>
+        </div>
     </body>
 </html>
